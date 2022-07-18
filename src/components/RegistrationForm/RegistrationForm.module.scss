@@ -1,0 +1,36 @@
+@import "../../styles/variables";
+
+.wrap {
+  background-color:$bg;
+  margin: 20px 0;
+  height: 100vh;
+  padding: 0 20px;
+  @include breakpoint(md) {
+    padding: 0 40px;
+  }
+  transition: 0.3s ease all;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__input {
+      width: calc(100% - 100px);
+      max-width: 400px;
+      margin: 10px auto;
+    }
+
+    &__google:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+
+
+}

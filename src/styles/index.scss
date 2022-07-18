@@ -1,0 +1,68 @@
+@import "./variables";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  font-family: Poppins;
+  color: $dark;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+h4 {
+  font-weight: 200;
+}
+
+input {
+  border-radius: $borderRadius;
+  height: 40px;
+  outline: none;
+  border: none;
+  background-color: $light;
+  color: $dark;
+  font-size: 16px;
+  padding: 10px;
+  min-width: 200px;
+  margin: 10px 0;
+}
+
+button {
+  border-radius: $borderRadius;
+  color: $light;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  width: 100px;
+  background-color: rgba($dark, 0.95);
+  border: none;
+  outline: none;
+  margin: 10px 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $dark;
+  }
+}
+
+#root {
+  height: 100%;
+}
