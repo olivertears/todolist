@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import AppRouter from './components/AppRouter';
-import AppLoader from './components/AppLoader/AppLoader';
+import Loader from './components/Loader/Loader';
 import { useTypedSelector } from './hooks/useTypedSelector';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {loader ? <AppLoader /> : <AppRouter />}
+      {loader ? <Loader /> : <AppRouter />}
     </>
   );
 }

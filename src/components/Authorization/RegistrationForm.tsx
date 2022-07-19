@@ -1,13 +1,17 @@
 import React, { FC, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 // @ts-ignore
-import cl from './RegistrationForm.module.scss';
+import cl from './Authorization.module.scss';
 import { useActions } from '../../hooks/useActions';
 import { UserState } from '../../store/reducers/user/types';
+// eslint-disable-next-line import/no-cycle
+import { RouteNames } from '../../router';
 
 const RegistrationForm: FC = () => {
   const auth = getAuth();
-  const { setUser } = useActions();
+  const navigate = useNavigate();
+  const { setUser, setError, setLoader } = useActions();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -15,22 +19,41 @@ const RegistrationForm: FC = () => {
 
   const passwordMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    password === confirmedPassword ? signup() : console.log('Passwords do not match');
+    password === confirmedPassword ? signUp() : console.log('Passwords do not match');
   };
 
-  const signup = () => {
+  const signUp = () => {
+    setLoader(true);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then((res) => {
         const user: UserState = {
-          uid: userCredential.user.uid,
-          email: userCredential.user.email || '',
-          auth: true,
+          uid: res.user.uid,
+          email: res.user.email || '',
+          isAuth: true,
         };
         setUser(user);
+        navigate(RouteNames.CALENDAR);
       })
       .catch((error) => {
-        console.log(error.message);
-      });
+        setError('Email is already in use');
+      })
+      .finally(() => setLoader(false));
+  };
+
+  const signUpWithGoogle = () => {
+    setLoader(true);
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        const user: UserState = {
+          uid: res.user.uid,
+          email: res.user.email || '',
+          isAuth: true,
+        };
+        setUser(user);
+        navigate(RouteNames.CALENDAR);
+      })
+      .finally(() => setLoader(false));
   };
 
   return (
@@ -64,7 +87,9 @@ const RegistrationForm: FC = () => {
           onChange={(e) => setConfirmedPassword(e.target.value)}
         />
         <button type={'submit'}>SIGN UP</button>
-        <h3 className={cl.wrap__form__google}>Sign up with Google</h3>
+        <h3 className={cl.wrap__form__google} onClick={signUpWithGoogle}>
+          Sign up with Google
+        </h3>
       </form>
     </div>
   );

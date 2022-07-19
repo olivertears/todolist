@@ -6,9 +6,9 @@ import Calendar from '../pages/Calendar';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const AppRouter: FC = () => {
-  const { auth } = useTypedSelector((state) => state.user);
+  const { isAuth } = useTypedSelector((state) => state.user);
 
-  return auth ? (
+  return isAuth ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={<route.element />} />

@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
+import LoginForm from '../components/Authorization/LoginForm';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import ErrorToast from '../components/ErrorToast/ErrorToast';
 
 const SignIn: FC = () => {
+  const { error } = useTypedSelector((state) => state.app);
+
   return (
     <div>
-      <h1>SIGN IN</h1>
+      <LoginForm />
+      {error && <ErrorToast />}
     </div>
   );
 };

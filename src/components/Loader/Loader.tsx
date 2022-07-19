@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 // @ts-ignore
-import cl from './AppLoader.module.scss';
+import cl from './Loader.module.scss';
 
-const AppLoader: FC = () => {
+const Loader: FC = () => {
   return (
     <div className={cl.spinner}>
       <div />
@@ -21,4 +21,4 @@ const AppLoader: FC = () => {
   );
 };
 
-export default AppLoader;
+export default Loader;

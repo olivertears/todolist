@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.wrap {
+  position: absolute;
+  background-color: $errorBg;
+  color: $errorTxt;
+  border-radius: $borderRadius;
+  padding: 10px 20px;
+  outline: 3px solid $errorTxt;
+  margin: 20px;
+  bottom: 0;
+  max-width: 400px;
+
+  @include breakpoint($mid) {
+    margin: 40px;
+  }
+  transition: 0.3s ease all;
+
+  &__txt {
+    font-size: 16px;
+
+  }
+}

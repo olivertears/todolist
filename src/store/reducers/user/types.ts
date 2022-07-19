@@ -1,7 +1,7 @@
 export interface UserState {
   uid: string;
   email: string;
-  auth: boolean;
+  isAuth: boolean;
 }
 
 export enum UserActionsEnum {

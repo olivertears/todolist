@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/index.scss';
 import { BrowserRouter } from 'react-router-dom';
-import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { Provider } from 'react-redux';
+import { initializeApp } from 'firebase/app';
 import { store } from './store';
 import App from './App';
 
@@ -19,7 +19,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
