@@ -1,8 +1,6 @@
-export interface UserState {
-  uid: string;
-  email: string;
-  isAuth: boolean;
-}
+import { IUser } from '../../../models/IUser';
+
+export type UserState = IUser | null;
 
 export enum UserActionsEnum {
   SET_USER = 'SET_USER',

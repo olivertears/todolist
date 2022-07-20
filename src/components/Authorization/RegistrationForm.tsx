@@ -1,17 +1,17 @@
 import React, { FC, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-// @ts-ignore
+import { useDispatch } from 'react-redux';
 import cl from './Authorization.module.scss';
-import { useActions } from '../../hooks/useActions';
-import { UserState } from '../../store/reducers/user/types';
-// eslint-disable-next-line import/no-cycle
-import { RouteNames } from '../../router';
+import { IUser } from '../../models/IUser';
+import { addError, setLoader } from '../../store/reducers/app/action-creators';
+import { setUser } from '../../store/reducers/user/action-creators';
+import { RouteNames } from '../../router/RouteNames';
 
 const RegistrationForm: FC = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const { setUser, setError, setLoader } = useActions();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -19,41 +19,31 @@ const RegistrationForm: FC = () => {
 
   const passwordMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    password === confirmedPassword ? signUp() : console.log('Passwords do not match');
+    password === confirmedPassword ? signUp() : dispatch(addError('Passwords do not match'));
   };
 
   const signUp = () => {
-    setLoader(true);
+    dispatch(setLoader(true));
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        const user: UserState = {
-          uid: res.user.uid,
-          email: res.user.email || '',
-          isAuth: true,
-        };
-        setUser(user);
+        dispatch(setUser(res.user as IUser));
         navigate(RouteNames.CALENDAR);
       })
       .catch((error) => {
-        setError('Email is already in use');
+        dispatch(addError('Email is already in use'));
       })
-      .finally(() => setLoader(false));
+      .finally(() => dispatch(setLoader(false)));
   };
 
   const signUpWithGoogle = () => {
-    setLoader(true);
+    dispatch(setLoader(true));
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
-        const user: UserState = {
-          uid: res.user.uid,
-          email: res.user.email || '',
-          isAuth: true,
-        };
-        setUser(user);
+        dispatch(setUser(res.user as IUser));
         navigate(RouteNames.CALENDAR);
       })
-      .finally(() => setLoader(false));
+      .finally(() => dispatch(setLoader(false)));
   };
 
   return (

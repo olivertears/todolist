@@ -1,10 +1,6 @@
 import { UserAction, UserActionsEnum, UserState } from './types';
 
-const initialState: UserState = {
-  uid: '',
-  email: '',
-  isAuth: false,
-};
+const initialState: UserState = null;
 
 export default function (state = initialState, action: UserAction): UserState {
   switch (action.type) {

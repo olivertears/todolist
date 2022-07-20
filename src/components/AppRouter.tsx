@@ -1,14 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { privateRoutes, publicRoutes } from '../router';
 import SignIn from '../pages/SignIn';
 import Calendar from '../pages/Calendar';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { userSelector } from '../store/reducers/user/selector';
 
 const AppRouter: FC = () => {
-  const { isAuth } = useTypedSelector((state) => state.user);
+  const user = useSelector(userSelector);
 
-  return isAuth ? (
+  return user ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={<route.element />} />

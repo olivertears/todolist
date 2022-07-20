@@ -1,17 +1,13 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import LoginForm from '../components/Authorization/LoginForm';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import ErrorToast from '../components/ErrorToast/ErrorToast';
+import Loader from '../components/Loader/Loader';
+import { appSelector } from '../store/reducers/app/selector';
 
 const SignIn: FC = () => {
-  const { error } = useTypedSelector((state) => state.app);
+  const { loader } = useSelector(appSelector);
 
-  return (
-    <div>
-      <LoginForm />
-      {error && <ErrorToast />}
-    </div>
-  );
+  return loader ? <Loader /> : <LoginForm />;
 };
 
 export default SignIn;

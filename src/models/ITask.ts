@@ -4,4 +4,5 @@ export interface ITask {
   description: string;
   date: string;
   done: boolean;
+  userId: string;
 }

@@ -1,11 +1,12 @@
 export interface AppState {
   loader: boolean;
-  error: string;
+  errors: string[];
 }
 
 export enum AppActionsEnum {
   SET_LOADER = 'SET_LOADER',
-  SER_ERROR = 'SET_ERROR',
+  ADD_ERROR = 'ADD_ERROR',
+  REMOVE_ERROR = 'REMOVE_ERROR',
 }
 
 export interface SetLoaderAction {
@@ -13,9 +14,13 @@ export interface SetLoaderAction {
   payload: boolean;
 }
 
-export interface SetErrorAction {
-  type: AppActionsEnum.SER_ERROR;
+export interface AddErrorAction {
+  type: AppActionsEnum.ADD_ERROR;
   payload: string;
 }
 
-export type AppAction = SetLoaderAction | SetErrorAction;
+export interface RemoveErrorAction {
+  type: AppActionsEnum.REMOVE_ERROR;
+}
+
+export type AppAction = SetLoaderAction | AddErrorAction | RemoveErrorAction;

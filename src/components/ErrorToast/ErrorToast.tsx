@@ -1,23 +1,26 @@
 import React, { FC, useEffect } from 'react';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-// @ts-ignore
+import { useDispatch, useSelector } from 'react-redux';
 import cl from './ErrorToast.module.scss';
+import { removeError } from '../../store/reducers/app/action-creators';
+import { appSelector } from '../../store/reducers/app/selector';
 
 const ErrorToast: FC = () => {
-  const { error } = useTypedSelector((state) => state.app);
-  const { setError } = useActions();
+  const { errors } = useSelector(appSelector);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    error &&
-      setTimeout(() => {
-        setError('');
-      }, 3000);
-  }, [error]);
+    setTimeout(() => {
+      dispatch(removeError());
+    }, 3000);
+  }, [errors]);
 
   return (
     <div className={cl.wrap}>
-      <h2 className={cl.wrap__txt}>{error}</h2>
+      {errors.map((error) => (
+        <div className={cl.wrap__errorWrap}>
+          <h2 className={cl.wrap__errorWrap__txt}>{error}</h2>
+        </div>
+      ))}
     </div>
   );
 };

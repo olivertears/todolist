@@ -1,17 +1,20 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import AppRouter from './components/AppRouter';
-import Loader from './components/Loader/Loader';
-import { useTypedSelector } from './hooks/useTypedSelector';
+import ErrorToast from './components/ErrorToast/ErrorToast';
+import { useSelector } from 'react-redux';
+import { appSelector } from './store/reducers/app/selector';
 
 function App() {
-  const { loader } = useTypedSelector((state) => state.app);
+  const { errors } = useSelector(appSelector);
 
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      {loader ? <Loader /> : <AppRouter />}
-    </>
+      <AppRouter />
+      {errors.length && <ErrorToast />}
+    </BrowserRouter>
   );
 }
 

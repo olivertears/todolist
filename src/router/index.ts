@@ -3,17 +3,11 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import TaskRedaction from '../pages/TaskRedaction';
 import Calendar from '../pages/Calendar';
+import { RouteNames } from './RouteNames';
 
 export interface IRoute {
   path: string;
   element: React.ComponentType;
-}
-
-export enum RouteNames {
-  CALENDAR = '/calendar',
-  SIGN_IN = '/sign_in',
-  SIGN_UP = '/sign_up',
-  TASK_REDACTION = '/task_redaction',
 }
 
 export const publicRoutes: IRoute[] = [

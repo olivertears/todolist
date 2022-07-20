@@ -1,32 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
-// @ts-ignore
+import { useDispatch, useSelector } from 'react-redux';
 import cl from './Navbar.module.scss';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-import { UserState } from '../../store/reducers/user/types';
+import { addError, setLoader } from '../../store/reducers/app/action-creators';
+import { setUser } from '../../store/reducers/user/action-creators';
+import { userSelector } from '../../store/reducers/user/selector';
 
 const Navbar = () => {
   const auth = getAuth();
-  const { isAuth } = useTypedSelector((state) => state.user);
-  const { setError, setUser, setLoader } = useActions();
+  const dispatch = useDispatch();
+  const user = useSelector(userSelector);
 
   const signOutFromAcc = () => {
-    setLoader(true);
+    dispatch(setLoader(true));
     signOut(auth)
       .then((res) => {
-        const user: UserState = {
-          uid: '',
-          email: '',
-          isAuth: false,
-        };
-        setUser(user);
+        dispatch(setUser(null));
       })
       .catch((err) => {
-        setError('Something went wrong, please try again later');
+        dispatch(addError('Something went wrong, please try again later'));
       })
-      .finally(() => setLoader(false));
+      .finally(() => dispatch(setLoader(false)));
   };
 
   return (
@@ -34,7 +29,7 @@ const Navbar = () => {
       <div className={cl.header__content}>
         <h2 className={cl.header__content__logo}>To-Do List</h2>
         <nav className={cl.header__content__nav}>
-          {isAuth ? (
+          {user ? (
             <Link to={'/sign_in'} className={cl.header__content__nav__link} onClick={signOutFromAcc}>
               Sign Out
             </Link>
