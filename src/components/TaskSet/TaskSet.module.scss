@@ -29,6 +29,8 @@
       padding: 3px 2px 0;
       margin: 12px 0;
       transition: 0.3s ease all;
+      text-decoration: none;
+      color: $dark;
 
       @include breakpoint($low) {
         width: 36px;

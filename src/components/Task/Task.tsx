@@ -18,7 +18,7 @@ const Task: FC = () => {
         ) : (
           <MdCheckBoxOutlineBlank className={cl.wrap__line__checkbox} />
         )}
-        <h2>Task</h2>
+        <h2 className={cl.wrap__line__txt}>Task</h2>
       </div>
       <div className={cl.wrap__line}>
         {open ? (

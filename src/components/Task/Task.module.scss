@@ -12,15 +12,21 @@
   &__line {
     display: flex;
 
+    &__txt {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre;
+    }
+
     &__checkbox {
-      width: 36px;
+      min-width: 36px;
       height: 36px;
       margin-right: 10px;
       cursor: pointer;
     }
 
     &__icon {
-      width: 30px;
+      min-width: 30px;
       height: 30px;
       margin: 15px 10px 0 5px;
       padding: 5px;

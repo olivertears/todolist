@@ -42,9 +42,14 @@ export const signIn = (auth: Auth, email: string, password: string) => async (di
 };
 
 export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) => {
-  dispatch(setLoader(true));
-  const provider = new GoogleAuthProvider();
-  const res = await signInWithPopup(auth, provider);
-  dispatch(setUser(res.user as IUser));
-  dispatch(setLoader(false));
+  try {
+    dispatch(setLoader(true));
+    const provider = new GoogleAuthProvider();
+    const res = await signInWithPopup(auth, provider);
+    dispatch(setUser(res.user as IUser));
+  } catch (err: any) {
+    console.log(err.message);
+  } finally {
+    dispatch(setLoader(false));
+  }
 };
