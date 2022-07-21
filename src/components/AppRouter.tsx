@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { privateRoutes, publicRoutes } from '../router';
 import SignIn from '../pages/SignIn';
-import Calendar from '../pages/Calendar';
+import Main from '../pages/Main';
 import { userSelector } from '../store/reducers/user/selector';
 
 const AppRouter: FC = () => {
@@ -14,7 +14,7 @@ const AppRouter: FC = () => {
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={<route.element />} />
       ))}
-      <Route path="*" element={<Calendar />} />
+      <Route path="*" element={<Main />} />
     </Routes>
   ) : (
     <Routes>

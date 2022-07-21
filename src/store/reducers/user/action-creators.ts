@@ -15,7 +15,7 @@ export const setUser = (user: UserState): SetUserAction => ({
   payload: user,
 });
 
-// ASYNC ACTIONS - still not working :(
+// THUNK ACTIONS
 
 export const signUp = (auth: Auth, email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
@@ -42,14 +42,9 @@ export const signIn = (auth: Auth, email: string, password: string) => async (di
 };
 
 export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoader(true));
-    const provider = new GoogleAuthProvider();
-    const res = await signInWithPopup(auth, provider);
-    dispatch(setUser(res.user as IUser));
-  } catch (err: any) {
-    console.log(err.message);
-  } finally {
-    dispatch(setLoader(false));
-  }
+  dispatch(setLoader(true));
+  const provider = new GoogleAuthProvider();
+  const res = await signInWithPopup(auth, provider);
+  dispatch(setUser(res.user as IUser));
+  dispatch(setLoader(false));
 };

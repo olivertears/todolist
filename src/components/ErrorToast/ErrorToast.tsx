@@ -12,12 +12,12 @@ const ErrorToast: FC = () => {
     setTimeout(() => {
       dispatch(removeError());
     }, 3000);
-  }, [errors]);
+  }, [errors, dispatch]);
 
   return (
     <div className={cl.wrap}>
-      {errors.map((error) => (
-        <div className={cl.wrap__errorWrap}>
+      {errors.map((error, idx) => (
+        <div key={error[idx]} className={cl.wrap__errorWrap}>
           <h2 className={cl.wrap__errorWrap__txt}>{error}</h2>
         </div>
       ))}

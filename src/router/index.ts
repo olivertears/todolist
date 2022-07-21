@@ -2,7 +2,7 @@ import React from 'react';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import TaskRedaction from '../pages/TaskRedaction';
-import Calendar from '../pages/Calendar';
+import Main from '../pages/Main';
 import { RouteNames } from './RouteNames';
 
 export interface IRoute {
@@ -16,6 +16,6 @@ export const publicRoutes: IRoute[] = [
 ];
 
 export const privateRoutes: IRoute[] = [
-  { path: RouteNames.CALENDAR, element: Calendar },
+  { path: RouteNames.MAIN, element: Main },
   { path: RouteNames.TASK_REDACTION, element: TaskRedaction },
 ];

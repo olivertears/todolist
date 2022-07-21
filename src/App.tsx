@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
 import AppRouter from './components/AppRouter';
 import ErrorToast from './components/ErrorToast/ErrorToast';
-import { useSelector } from 'react-redux';
 import { appSelector } from './store/reducers/app/selector';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <AppRouter />
-      {errors.length && <ErrorToast />}
+      {!!errors.length && <ErrorToast />}
     </BrowserRouter>
   );
 }

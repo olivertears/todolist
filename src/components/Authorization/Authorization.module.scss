@@ -3,7 +3,7 @@
 .wrap {
   background-color:$bg;
   margin: 20px 0;
-  height: 100vh;
+  height: 100%;
   padding: 0 20px;
   @include breakpoint($mid) {
     padding: 0 40px;

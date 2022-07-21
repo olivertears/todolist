@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__card {
+    height: 80px;
+    min-width: 64px;
+    padding: 10px;
+    background-color: $light;
+    text-align: center;
+    border-radius: $borderRadius;
+    color: $dark;
+    margin: 10px;
+    @include breakpoint($mid) {
+      height: 100px;
+      min-width: 80px;
+    }
+    transition: 0.3s ease all;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 5px 2px $dark;
+    }
+
+    &__weekDay {
+      font-size: 20px;
+    }
+
+    &__day {
+      font-size: 24px;
+      margin-top: 5px;
+    }
+  }
+
+  &__selected {
+    background-color: $dark;
+    color: white;
+  }
+
+  &__today {
+    outline: 3px solid;
+  }
+
+  &__dots {
+    display: flex;
+
+    &__completedTask {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #ff7832;
+      margin: 0 5px;
+    }
+
+    &__notCompletedTask {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #dc3c00;
+      margin: 0 5px;
+    }
+  }
+
+}

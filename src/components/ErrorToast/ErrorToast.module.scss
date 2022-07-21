@@ -13,11 +13,11 @@
   }
 
   &__errorWrap {
-    background-color: $errorBg;
-    color: $errorTxt;
+    background-color: rgb(255, 128, 128);
+    color: darkred;
     border-radius: $borderRadius;
     padding: 10px 20px;
-    outline: 3px solid $errorTxt;
+    outline: 3px solid;
     margin-top: 10px;
 
     &__txt {

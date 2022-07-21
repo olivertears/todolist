@@ -1,17 +1,16 @@
 import React, { FC, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import cl from './Authorization.module.scss';
-import { IUser } from '../../models/IUser';
 import { addError, setLoader } from '../../store/reducers/app/action-creators';
-import { setUser } from '../../store/reducers/user/action-creators';
+import { signInWithGoogle, signUp } from '../../store/reducers/user/action-creators';
 import { RouteNames } from '../../router/RouteNames';
+import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 
 const RegistrationForm: FC = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useThunkDispatch();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -19,31 +18,17 @@ const RegistrationForm: FC = () => {
 
   const passwordMatch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    password === confirmedPassword ? signUp() : dispatch(addError('Passwords do not match'));
+    password === confirmedPassword ? registration() : dispatch(addError('Passwords do not match'));
   };
 
-  const signUp = () => {
-    dispatch(setLoader(true));
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        dispatch(setUser(res.user as IUser));
-        navigate(RouteNames.CALENDAR);
-      })
-      .catch((error) => {
-        dispatch(addError('Email is already in use'));
-      })
-      .finally(() => dispatch(setLoader(false)));
+  const registration = () => {
+    dispatch(signUp(auth, email, password));
+    navigate(RouteNames.MAIN);
   };
 
-  const signUpWithGoogle = () => {
-    dispatch(setLoader(true));
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        dispatch(setUser(res.user as IUser));
-        navigate(RouteNames.CALENDAR);
-      })
-      .finally(() => dispatch(setLoader(false)));
+  const signInWithPopup = () => {
+    dispatch(signInWithGoogle(auth));
+    navigate(RouteNames.MAIN);
   };
 
   return (
@@ -77,7 +62,7 @@ const RegistrationForm: FC = () => {
           onChange={(e) => setConfirmedPassword(e.target.value)}
         />
         <button type={'submit'}>SIGN UP</button>
-        <h3 className={cl.wrap__form__google} onClick={signUpWithGoogle}>
+        <h3 className={cl.wrap__form__google} onClick={signInWithPopup}>
           Sign up with Google
         </h3>
       </form>
