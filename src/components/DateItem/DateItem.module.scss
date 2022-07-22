@@ -36,13 +36,13 @@
     }
   }
 
+  &__today {
+    outline: 3px solid;
+  }
+
   &__selected {
     background-color: $dark;
     color: white;
-  }
-
-  &__today {
-    outline: 3px solid;
   }
 
   &__dots {

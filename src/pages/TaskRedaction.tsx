@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { appSelector } from '../store/reducers/app/selector';
+import Loader from '../components/Loader/Loader';
+import TaskRedactionForm from '../components/TaskRedactionForm/TaskRedactionForm';
 
 const TaskRedaction: FC = () => {
-  return (
-    <div>
-      <h1>TASK REDACTION</h1>
-    </div>
-  );
+  const { loader } = useSelector(appSelector);
+
+  return loader ? <Loader /> : <TaskRedactionForm />;
 };
 
 export default TaskRedaction;

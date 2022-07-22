@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+
+.wrap {
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    text-align: left;
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    transition: 0.3s ease all;
+    display: flex;
+    transition: 0.3s ease all;
+
+    @include breakpoint($low) {
+      font-size: 2.7rem;
+    }
+
+    @include breakpoint($mid) {
+      font-size: 4rem;
+      margin-left: calc((100% - 708px) / 2);
+    }
+  }
+
+  &__input {
+    max-width: 708px;
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  &__buttonWrap {
+    display: flex;
+    max-width: 708px;
+    width: 100%;
+    margin: 10px auto;
+
+    &__btn {
+      margin-right: 20px;
+    }
+  }
+}

@@ -44,6 +44,20 @@ input {
   margin: 10px 0;
 }
 
+textarea {
+  border-radius: $borderRadius;
+  min-height: 100px;
+  outline: none;
+  border: none;
+  background-color: $light;
+  color: $dark;
+  font-size: 16px;
+  padding: 10px;
+  min-width: 200px;
+  margin: 10px 0;
+  resize: vertical;
+}
+
 button {
   border-radius: $borderRadius;
   color: $light;

@@ -1,11 +1,12 @@
-import React, { FC, useLayoutEffect, useRef, useState } from 'react';
+import React, { FC, useLayoutEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import cl from './Calendar.module.scss';
-import Day from '../Day/Day';
+import { appSelector } from '../../store/reducers/app/selector';
+import DateItem from '../DateItem/DateItem';
 
 const Calendar: FC = () => {
   const slide = useRef<HTMLDivElement>(null);
-
-  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+  const { dateArray } = useSelector(appSelector);
 
   let start = 0;
   let transform = 0;
@@ -40,8 +41,8 @@ const Calendar: FC = () => {
   return (
     <div className={cl.wrap}>
       <div ref={slide} className={cl.wrap__slider} draggable={false}>
-        {a.map((day) => (
-          <Day key={day} />
+        {dateArray.map((date) => (
+          <DateItem key={String(date)} date={date} />
         ))}
       </div>
     </div>

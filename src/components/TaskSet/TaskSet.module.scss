@@ -7,14 +7,14 @@
 
   &__date {
     text-align: left;
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: 20px;
     transition: 0.3s ease all;
     display: flex;
     transition: 0.3s ease all;
 
     @include breakpoint($low) {
-      font-size: 3rem;
+      font-size: 2.7rem;
     }
 
     @include breakpoint($mid) {
