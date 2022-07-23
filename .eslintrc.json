@@ -28,14 +28,14 @@
     ],
     "rules": {
          "quotes": [
-             "error",
+             "warn",
              "single",
              {
                  "avoidEscape": true
              }
          ],
         "@typescript-eslint/quotes": [
-            "error",
+            "warn",
             "single",
             {
                 "avoidEscape": true

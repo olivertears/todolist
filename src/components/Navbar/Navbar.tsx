@@ -1,27 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAuth, signOut } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { getAuth } from 'firebase/auth';
+import { useSelector } from 'react-redux';
 import cl from './Navbar.module.scss';
-import { addError, setLoader } from '../../store/reducers/app/action-creators';
-import { setUser } from '../../store/reducers/user/action-creators';
+import { logout } from '../../store/reducers/user/action-creators';
 import { userSelector } from '../../store/reducers/user/selector';
+import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 
 const Navbar = () => {
   const auth = getAuth();
-  const dispatch = useDispatch();
+  const dispatch = useThunkDispatch();
   const user = useSelector(userSelector);
 
-  const signOutFromAcc = () => {
-    dispatch(setLoader(true));
-    signOut(auth)
-      .then((res) => {
-        dispatch(setUser(null));
-      })
-      .catch((err) => {
-        dispatch(addError('Something went wrong, please try again later'));
-      })
-      .finally(() => dispatch(setLoader(false)));
+  const signOut = () => {
+    dispatch(logout(auth));
   };
 
   return (
@@ -29,8 +21,8 @@ const Navbar = () => {
       <div className={cl.header__content}>
         <h2 className={cl.header__content__logo}>To-Do List</h2>
         <nav className={cl.header__content__nav}>
-          {user ? (
-            <Link to={'/sign_in'} className={cl.header__content__nav__link} onClick={signOutFromAcc}>
+          {user.uid ? (
+            <Link to={'/sign_in'} className={cl.header__content__nav__link} onClick={signOut}>
               Sign Out
             </Link>
           ) : (

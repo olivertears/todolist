@@ -1,8 +1,7 @@
 export interface ITask {
-  id: string;
-  header: string;
+  uid: string;
+  task: string;
   description: string;
   date: string;
   done: boolean;
-  userId: string;
 }

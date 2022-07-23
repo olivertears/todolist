@@ -1,10 +1,8 @@
-import { IDate } from '../../../models/IDate';
-
 export interface AppState {
   loader: boolean;
   errors: string[];
-  dateArray: IDate[];
-  selectedDate: IDate;
+  dateArray: string[];
+  selectedDate: string;
 }
 
 export enum AppActionsEnum {
@@ -32,17 +30,17 @@ export interface RemoveErrorAction {
 
 export interface AddDatesToStartAction {
   type: AppActionsEnum.ADD_DATES_TO_START;
-  payload: IDate[];
+  payload: string[];
 }
 
 export interface AddDatesToEndAction {
   type: AppActionsEnum.ADD_DATES_TO_END;
-  payload: IDate[];
+  payload: string[];
 }
 
 export interface SetSelectedDateAction {
   type: AppActionsEnum.SET_SELECTED_DATE;
-  payload: IDate;
+  payload: string;
 }
 
 export type AppAction =

@@ -1,4 +1,4 @@
-import { Auth } from '@firebase/auth';
+import { Auth, signOut } from '@firebase/auth';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -49,6 +49,18 @@ export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) =>
     dispatch(setUser(res.user as IUser));
   } catch (err: any) {
     console.log(err.message);
+  } finally {
+    dispatch(setLoader(false));
+  }
+};
+
+export const logout = (auth: Auth) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setLoader(true));
+    await signOut(auth);
+    dispatch(setUser({} as IUser));
+  } catch (err: any) {
+    dispatch(addError('Something went wrong, please try again later'));
   } finally {
     dispatch(setLoader(false));
   }

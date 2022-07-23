@@ -3,6 +3,7 @@ import { TaskAction, TaskActionsEnum, TaskState } from './types';
 
 const initialState: TaskState = {
   tasks: [] as ITask[],
+  selectedTask: {} as ITask,
 };
 
 export default function (state = initialState, action: TaskAction): TaskState {
@@ -12,9 +13,11 @@ export default function (state = initialState, action: TaskAction): TaskState {
     case TaskActionsEnum.ADD_TASK:
       return { ...state, tasks: [...state.tasks, action.payload] };
     case TaskActionsEnum.CHANGE_TASK:
-      return { ...state, tasks: state.tasks.map((task) => (task.id === action.payload.id ? action.payload : task)) };
+      return { ...state, tasks: state.tasks.map((task) => (task.uid === action.payload.uid ? action.payload : task)) };
     case TaskActionsEnum.REMOVE_TASK:
-      return { ...state, tasks: state.tasks.filter((task) => task.id !== action.payload) };
+      return { ...state, tasks: state.tasks.filter((task) => task.uid !== action.payload) };
+    case TaskActionsEnum.SET_SELECTED_TASK:
+      return { ...state, selectedTask: action.payload };
     default:
       return state;
   }

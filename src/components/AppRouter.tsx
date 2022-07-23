@@ -9,7 +9,7 @@ import { userSelector } from '../store/reducers/user/selector';
 const AppRouter: FC = () => {
   const user = useSelector(userSelector);
 
-  return user ? (
+  return user.uid ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={<route.element />} />

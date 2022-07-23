@@ -7,7 +7,6 @@ import {
   SetLoaderAction,
   SetSelectedDateAction,
 } from './types';
-import { IDate } from '../../../models/IDate';
 
 export const setLoader = (loader: boolean): SetLoaderAction => ({
   type: AppActionsEnum.SET_LOADER,
@@ -23,17 +22,17 @@ export const removeError = (): RemoveErrorAction => ({
   type: AppActionsEnum.REMOVE_ERROR,
 });
 
-export const addDatesToStart = (dates: IDate[]): AddDatesToStartAction => ({
+export const addDatesToStart = (dates: string[]): AddDatesToStartAction => ({
   type: AppActionsEnum.ADD_DATES_TO_START,
   payload: dates,
 });
 
-export const addDatesToEnd = (dates: IDate[]): AddDatesToEndAction => ({
+export const addDatesToEnd = (dates: string[]): AddDatesToEndAction => ({
   type: AppActionsEnum.ADD_DATES_TO_END,
   payload: dates,
 });
 
-export const setSelectedDate = (date: IDate): SetSelectedDateAction => ({
+export const setSelectedDate = (date: string): SetSelectedDateAction => ({
   type: AppActionsEnum.SET_SELECTED_DATE,
   payload: date,
 });

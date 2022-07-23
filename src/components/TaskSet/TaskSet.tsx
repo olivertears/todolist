@@ -1,29 +1,41 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import cl from './TaskSet.module.scss';
 import Task from '../Task/Task';
 import { RouteNames } from '../../router/RouteNames';
 import { appSelector } from '../../store/reducers/app/selector';
+import { taskSelector } from '../../store/reducers/task/selector';
+import { months } from '../../consts';
+import Loader from '../Loader/Loader';
 
 const TaskSet: FC = () => {
-  const { selectedDate } = useSelector(appSelector);
+  const { selectedDate, loader } = useSelector(appSelector);
+  const { tasks } = useSelector(taskSelector);
 
-  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const todayTasks = useMemo(() => {
+    return tasks.filter((task) => task.date === selectedDate);
+  }, [tasks, selectedDate]);
 
   return (
     <div className={cl.wrap}>
       <h4 className={cl.wrap__date}>
-        {`${selectedDate.month} ${selectedDate.day}, ${selectedDate.year}`}
+        {`${months[new Date(selectedDate).getMonth()]} ${new Date(selectedDate).getDate()}, ${new Date(
+          selectedDate,
+        ).getFullYear()}`}
         <Link to={RouteNames.TASK_REDACTION} className={cl.wrap__date__newTask}>
           +
         </Link>
       </h4>
-      <div className={cl.wrap__taskList}>
-        {a.map((task) => (
-          <Task key={task} />
-        ))}
-      </div>
+      {loader ? (
+        <Loader />
+      ) : (
+        <div className={cl.wrap__taskList}>
+          {todayTasks.map((task) => (
+            <Task key={task.uid} task={task} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

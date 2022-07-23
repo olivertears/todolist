@@ -3,6 +3,7 @@ import { SetUserAction, UserActionsEnum } from '../user/types';
 
 export interface TaskState {
   tasks: ITask[];
+  selectedTask: ITask;
 }
 
 export enum TaskActionsEnum {
@@ -10,6 +11,7 @@ export enum TaskActionsEnum {
   ADD_TASK = 'ADD_TASK',
   CHANGE_TASK = 'CHANGE_TASK',
   REMOVE_TASK = 'REMOVE_TASK',
+  SET_SELECTED_TASK = 'SET_SELECTED_TASK',
 }
 
 export interface SetTasksAction {
@@ -32,4 +34,9 @@ export interface RemoveTaskAction {
   payload: string;
 }
 
-export type TaskAction = SetTasksAction | AddTaskAction | ChangeTaskAction | RemoveTaskAction;
+export interface SetSelectedTaskAction {
+  type: TaskActionsEnum.SET_SELECTED_TASK;
+  payload: ITask;
+}
+
+export type TaskAction = SetTasksAction | AddTaskAction | ChangeTaskAction | RemoveTaskAction | SetSelectedTaskAction;

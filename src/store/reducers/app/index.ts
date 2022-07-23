@@ -1,12 +1,12 @@
 import { AppAction, AppActionsEnum, AppState } from './types';
-import { getDateArray } from '../../../utils/getDates';
-import { translateDateToIDate } from '../../../utils/translateDateToIDate';
+import { getDateArray } from '../../../utils/getDateArray';
+import { dateToString } from '../../../utils/dateToString';
 
 const initialState: AppState = {
   loader: false,
   errors: [] as string[],
-  dateArray: getDateArray(new Date(), new Date().addDays(30)),
-  selectedDate: translateDateToIDate(new Date()),
+  dateArray: getDateArray(new Date().getTime(), new Date().getTime() + 30 * 86400000),
+  selectedDate: dateToString(new Date().getTime()),
 };
 
 export default function (state = initialState, action: AppAction): AppState {

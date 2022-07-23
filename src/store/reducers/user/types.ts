@@ -1,6 +1,6 @@
 import { IUser } from '../../../models/IUser';
 
-export type UserState = IUser | null;
+export type UserState = IUser;
 
 export enum UserActionsEnum {
   SET_USER = 'SET_USER',

@@ -1,6 +1,6 @@
 import { UserAction, UserActionsEnum, UserState } from './types';
 
-const initialState: UserState = null;
+const initialState = {} as UserState;
 
 export default function (state = initialState, action: UserAction): UserState {
   switch (action.type) {
