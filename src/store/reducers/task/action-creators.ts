@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { ITask } from '../../../models/ITask';
 import {
   AddTaskAction,
@@ -39,10 +39,12 @@ export const setSelectedTask = (task: ITask): SetSelectedTaskAction => ({
 
 // THUNK ACTIONS
 
-export const getTasks = (userId: string) => async (dispatch: AppDispatch) => {
+export const getTasks = (userId: string, start: string, end: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoader(true));
-    const res = await getDocs(collection(db, `users/${userId}/tasks`));
+    const res = await getDocs(
+      query(collection(db, `users/${userId}/tasks`), where('date', '>=', start), where('date', '<=', end)),
+    );
     const tasks = res.docs.map((d) => d.data() as ITask);
     dispatch(setTasks(tasks));
   } catch (e: any) {

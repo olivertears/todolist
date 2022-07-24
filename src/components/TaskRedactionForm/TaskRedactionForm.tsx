@@ -17,8 +17,8 @@ const TaskRedactionForm: FC = () => {
   const dispatch = useThunkDispatch();
   const navigate = useNavigate();
 
-  const [task, setTask] = useState<string>(selectedTask.task);
-  const [description, setDescription] = useState<string>(selectedTask.description);
+  const [task, setTask] = useState<string>(selectedTask.task || '');
+  const [description, setDescription] = useState<string>(selectedTask.description || '');
   const [date, setDate] = useState<string>(selectedDate);
 
   const redactTask = (e: React.FormEvent<HTMLFormElement>) => {

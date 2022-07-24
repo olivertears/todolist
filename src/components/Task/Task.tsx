@@ -58,7 +58,7 @@ const Task: FC<ITaskProps> = ({ task }) => {
         <BsFillPencilFill className={cl.wrap__line__icon} onClick={goToTaskRedaction} />
         <GoTrashcan className={cl.wrap__line__icon} onClick={removeTask} />
       </div>
-      {open && <h3 className={cl.wrap__description}>{task.description}</h3>}
+      {open && <textarea className={cl.wrap__description}>{task.description}</textarea>}
     </div>
   );
 };

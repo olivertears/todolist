@@ -1,5 +1,4 @@
 import { ITask } from '../../../models/ITask';
-import { SetUserAction, UserActionsEnum } from '../user/types';
 
 export interface TaskState {
   tasks: ITask[];

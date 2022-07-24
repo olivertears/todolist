@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .wrap {
   overflow: hidden;
   width: calc(100% - 40px);
@@ -6,6 +8,10 @@
   &__slider {
     display: flex;
     width: 100%;
-    transform: translateX(0);
+    transform: translateX(-84px);
+
+    @include breakpoint($mid) {
+      transform: translateX(-100px);
+    }
   }
 }

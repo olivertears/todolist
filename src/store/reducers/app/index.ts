@@ -1,11 +1,11 @@
 import { AppAction, AppActionsEnum, AppState } from './types';
-import { getDateArray } from '../../../utils/getDateArray';
 import { dateToString } from '../../../utils/dateToString';
+import { getDatesToEnd } from '../../../utils/getDatesToEnd';
 
 const initialState: AppState = {
   loader: false,
   errors: [] as string[],
-  dateArray: getDateArray(new Date().getTime(), new Date().getTime() + 30 * 86400000),
+  dateArray: getDatesToEnd(dateToString(new Date().getTime() - 2 * 86400000)),
   selectedDate: dateToString(new Date().getTime()),
 };
 
