@@ -1,4 +1,4 @@
-import { Auth, signOut } from '@firebase/auth';
+import { Auth, signInWithRedirect, signOut } from '@firebase/auth';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -37,7 +37,7 @@ export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) =>
   try {
     dispatch(setLoader(true));
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    window.innerWidth < 768 ? await signInWithRedirect(auth, provider) : await signInWithPopup(auth, provider);
   } finally {
     dispatch(setLoader(false));
   }
