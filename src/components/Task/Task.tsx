@@ -25,16 +25,17 @@ const Task: FC<ITaskProps> = ({ task }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [done, setDone] = useState<boolean>(task.done);
 
-  const changeTask = () => {
+  const changeTaskDone = () => {
     setDone(!done);
     dispatch(putTask(user?.uid || '', { ...task, done: !done }));
-    navigate(RouteNames.MAIN);
   };
 
   const goToTaskRedaction = () => {
     dispatch(setSelectedTask(task));
     navigate(RouteNames.TASK_REDACTION);
   };
+
+  const changeDescriptionOpen = () => setOpen(!open);
 
   const removeTask = () => {
     dispatch(deleteTask(user?.uid || '', task.uid));
@@ -44,9 +45,9 @@ const Task: FC<ITaskProps> = ({ task }) => {
     <div className={cl.wrap}>
       <div className={cl.wrap__line}>
         {task.done ? (
-          <MdCheckBox className={cl.wrap__line__checkbox} onClick={changeTask} />
+          <MdCheckBox className={cl.wrap__line__checkbox} onClick={changeTaskDone} />
         ) : (
-          <MdCheckBoxOutlineBlank className={cl.wrap__line__checkbox} onClick={changeTask} />
+          <MdCheckBoxOutlineBlank className={cl.wrap__line__checkbox} onClick={changeTaskDone} />
         )}
         <h2 className={cl.wrap__line__txt}>{task.task}</h2>
       </div>
@@ -56,7 +57,7 @@ const Task: FC<ITaskProps> = ({ task }) => {
             className={clsx(cl.wrap__line__icon, {
               [cl.wrap__line__iconRotate]: open,
             })}
-            onClick={() => setOpen(!open)}
+            onClick={changeDescriptionOpen}
           />
         )}
         <BsFillPencilFill className={cl.wrap__line__icon} onClick={goToTaskRedaction} />

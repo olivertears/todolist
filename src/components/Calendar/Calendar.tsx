@@ -1,4 +1,4 @@
-import React, { FC, LegacyRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { FC, LegacyRef, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-hook-inview';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -13,6 +13,7 @@ import { getDatesToStart } from '../../utils/getDatesToStart';
 import { getTasks } from '../../store/reducers/task/action-creators';
 
 let transform = window.innerWidth < 768 ? -94 : -110;
+let startTouch: null | React.Touch = null;
 
 const Calendar: FC = () => {
   const auth = getAuth();
@@ -25,7 +26,6 @@ const Calendar: FC = () => {
   const [refStart, inViewStart] = useInView();
 
   const firstRender = useRef<boolean>(true);
-  const startTouch = useRef<null | React.Touch>(null);
 
   useEffect(() => {
     if (inViewStart) {
@@ -60,16 +60,16 @@ const Calendar: FC = () => {
 
     const currentTouch = e.touches[0];
 
-    if (startTouch.current && slide.current) {
-      transform += startTouch.current.clientX - currentTouch.clientX;
+    if (startTouch && slide.current) {
+      transform -= startTouch.clientX - currentTouch.clientX;
       slide.current.style.transform = `translateX(${transform}px)`;
     }
 
-    startTouch.current = currentTouch;
+    startTouch = currentTouch;
   };
 
   const touchEndAction = () => {
-    startTouch.current = null;
+    startTouch = null;
   };
 
   const getRef = (idx: number): LegacyRef<HTMLDivElement> | null => {

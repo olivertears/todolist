@@ -29,6 +29,8 @@ const DateItem: FC<IDateItemProps> = ({ date }) => {
     setUnfinishedTasks(!!thisDateTasks.find((task) => task.done === false));
   }, [thisDateTasks]);
 
+  const selectDate = () => dispatch(setSelectedDate(date));
+
   return (
     <div className={cl.wrap}>
       <div
@@ -37,7 +39,7 @@ const DateItem: FC<IDateItemProps> = ({ date }) => {
           [cl.wrap__selected]: date === selectedDate,
           [cl.wrap__today]: date === dateToString(new Date().getTime()),
         })}
-        onClick={() => dispatch(setSelectedDate(date))}
+        onClick={selectDate}
       >
         <h3 className={cl.wrap__card__weekDay}>{weekDays[new Date(date).getDay()]}</h3>
         <h2 className={cl.wrap__card__day}>{new Date(date).getDate()}</h2>

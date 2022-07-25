@@ -21,17 +21,17 @@ const Navbar = () => {
       <div className={cl.header__content}>
         <h2 className={cl.header__content__logo}>To-Do List</h2>
         <nav className={cl.header__content__nav}>
-          {loading || user ? (
+          {user ? (
             <Link to={'/sign_in'} className={cl.header__content__nav__link} onClick={signOut}>
-              Sign Out
+              {loading || 'Sign Out'}
             </Link>
           ) : (
             <>
               <Link to={'/sign_up'} className={cl.header__content__nav__link}>
-                Sign Up
+                {loading || 'Sign Up'}
               </Link>
               <Link to={'/sign_in'} className={cl.header__content__nav__link}>
-                Sign In
+                {loading || 'Sign In'}
               </Link>
             </>
           )}
