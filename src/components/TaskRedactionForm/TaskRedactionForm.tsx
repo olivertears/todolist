@@ -73,6 +73,7 @@ const TaskRedactionForm: FC = () => {
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
       />
       <input
+        required
         className={cl.wrap__input}
         type={'date'}
         min={dateToString(new Date().getTime())}
