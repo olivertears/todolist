@@ -5,23 +5,16 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import { SetUserAction, UserActionsEnum, UserState } from './types';
 import { addError, setLoader } from '../app/action-creators';
-import { IUser } from '../../../models/IUser';
 import { AppDispatch } from '../../index';
-
-export const setUser = (user: UserState): SetUserAction => ({
-  type: UserActionsEnum.SET_USER,
-  payload: user,
-});
+import { resetTasks } from '../task/action-creators';
 
 // THUNK ACTIONS
 
 export const signUp = (auth: Auth, email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoader(true));
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    dispatch(setUser(res.user as IUser));
+    await createUserWithEmailAndPassword(auth, email, password);
   } catch (err: any) {
     dispatch(addError('Email is already in use'));
   } finally {
@@ -32,8 +25,7 @@ export const signUp = (auth: Auth, email: string, password: string) => async (di
 export const signIn = (auth: Auth, email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoader(true));
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    dispatch(setUser(res.user as IUser));
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err: any) {
     dispatch(addError('Invalid email or password'));
   } finally {
@@ -45,10 +37,7 @@ export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) =>
   try {
     dispatch(setLoader(true));
     const provider = new GoogleAuthProvider();
-    const res = await signInWithPopup(auth, provider);
-    dispatch(setUser(res.user as IUser));
-  } catch (err: any) {
-    console.log(err.message);
+    await signInWithPopup(auth, provider);
   } finally {
     dispatch(setLoader(false));
   }
@@ -58,7 +47,7 @@ export const logout = (auth: Auth) => async (dispatch: AppDispatch) => {
   try {
     dispatch(setLoader(true));
     await signOut(auth);
-    dispatch(setUser({} as IUser));
+    dispatch(resetTasks());
   } catch (err: any) {
     dispatch(addError('Something went wrong, please try again later'));
   } finally {

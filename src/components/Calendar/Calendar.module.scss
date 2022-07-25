@@ -8,10 +8,10 @@
   &__slider {
     display: flex;
     width: 100%;
-    transform: translateX(-84px);
+    transform: translateX(-94px);
 
     @include breakpoint($mid) {
-      transform: translateX(-100px);
+      transform: translateX(-110px);
     }
   }
 }

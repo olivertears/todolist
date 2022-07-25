@@ -4,6 +4,7 @@ import {
   AddTaskAction,
   ChangeTaskAction,
   RemoveTaskAction,
+  ResetTasksAction,
   SetSelectedTaskAction,
   SetTasksAction,
   TaskActionsEnum,
@@ -11,6 +12,10 @@ import {
 import { AppDispatch } from '../../index';
 import { addError, setLoader } from '../app/action-creators';
 import { db } from '../../../firebaseInit';
+
+export const resetTasks = (): ResetTasksAction => ({
+  type: TaskActionsEnum.RESET_TASKS,
+});
 
 export const setTasks = (tasks: ITask[]): SetTasksAction => ({
   type: TaskActionsEnum.SET_TASKS,

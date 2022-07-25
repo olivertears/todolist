@@ -6,11 +6,16 @@ export interface TaskState {
 }
 
 export enum TaskActionsEnum {
+  RESET_TASKS = 'RESET_TASKS',
   SET_TASKS = 'SET_TASKS',
   ADD_TASK = 'ADD_TASK',
   CHANGE_TASK = 'CHANGE_TASK',
   REMOVE_TASK = 'REMOVE_TASK',
   SET_SELECTED_TASK = 'SET_SELECTED_TASK',
+}
+
+export interface ResetTasksAction {
+  type: TaskActionsEnum.RESET_TASKS;
 }
 
 export interface SetTasksAction {
@@ -38,4 +43,10 @@ export interface SetSelectedTaskAction {
   payload: ITask;
 }
 
-export type TaskAction = SetTasksAction | AddTaskAction | ChangeTaskAction | RemoveTaskAction | SetSelectedTaskAction;
+export type TaskAction =
+  | ResetTasksAction
+  | SetTasksAction
+  | AddTaskAction
+  | ChangeTaskAction
+  | RemoveTaskAction
+  | SetSelectedTaskAction;

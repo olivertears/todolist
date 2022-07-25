@@ -4,13 +4,13 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { GoTrashcan } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import clsx from 'clsx';
 import cl from './Task.module.scss';
 import { ITask } from '../../models/ITask';
 import { deleteTask, putTask, setSelectedTask } from '../../store/reducers/task/action-creators';
 import { RouteNames } from '../../router/RouteNames';
-import { userSelector } from '../../store/reducers/user/selector';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 
 interface ITaskProps {
@@ -18,7 +18,8 @@ interface ITaskProps {
 }
 
 const Task: FC<ITaskProps> = ({ task }) => {
-  const user = useSelector(userSelector);
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
   const dispatch = useThunkDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const Task: FC<ITaskProps> = ({ task }) => {
 
   const changeTask = () => {
     setDone(!done);
-    dispatch(putTask(user.uid, { ...task, done: !done }));
+    dispatch(putTask(user?.uid || '', { ...task, done: !done }));
     navigate(RouteNames.MAIN);
   };
 
@@ -36,7 +37,7 @@ const Task: FC<ITaskProps> = ({ task }) => {
   };
 
   const removeTask = () => {
-    dispatch(deleteTask(user.uid, task.uid));
+    dispatch(deleteTask(user?.uid || '', task.uid));
   };
 
   return (
@@ -61,7 +62,7 @@ const Task: FC<ITaskProps> = ({ task }) => {
         <BsFillPencilFill className={cl.wrap__line__icon} onClick={goToTaskRedaction} />
         <GoTrashcan className={cl.wrap__line__icon} onClick={removeTask} />
       </div>
-      {open && <textarea className={cl.wrap__description}>{task.description}</textarea>}
+      {open && <textarea className={cl.wrap__description} value={task.description} readOnly />}
     </div>
   );
 };

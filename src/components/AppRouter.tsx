@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
 import { privateRoutes, publicRoutes } from '../router';
 import SignIn from '../pages/SignIn';
 import Main from '../pages/Main';
-import { userSelector } from '../store/reducers/user/selector';
 
 const AppRouter: FC = () => {
-  const user = useSelector(userSelector);
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
 
-  return user.uid ? (
+  return user ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={<route.element />} />

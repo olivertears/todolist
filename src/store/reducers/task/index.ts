@@ -8,6 +8,8 @@ const initialState: TaskState = {
 
 export default function (state = initialState, action: TaskAction): TaskState {
   switch (action.type) {
+    case TaskActionsEnum.RESET_TASKS:
+      return { ...state, tasks: [] as ITask[] };
     case TaskActionsEnum.SET_TASKS:
       return { ...state, tasks: [...state.tasks, ...action.payload] };
     case TaskActionsEnum.ADD_TASK:
