@@ -39,6 +39,10 @@
     outline: 3px solid;
   }
 
+  &__past {
+    opacity: 50%;
+  }
+
   &__selected {
     background-color: $dark;
     color: white;

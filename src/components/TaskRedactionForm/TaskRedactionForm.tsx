@@ -9,6 +9,7 @@ import { ITask } from '../../models/ITask';
 import { userSelector } from '../../store/reducers/user/selector';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 import { taskSelector } from '../../store/reducers/task/selector';
+import { dateToString } from '../../utils/dateToString';
 
 const TaskRedactionForm: FC = () => {
   const { selectedDate } = useSelector(appSelector);
@@ -69,6 +70,7 @@ const TaskRedactionForm: FC = () => {
       <input
         className={cl.wrap__input}
         type={'date'}
+        min={dateToString(new Date().getTime())}
         value={date}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
       />

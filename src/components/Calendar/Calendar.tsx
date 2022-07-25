@@ -11,6 +11,9 @@ import { getDatesToEnd } from '../../utils/getDatesToEnd';
 import { getDatesToStart } from '../../utils/getDatesToStart';
 import { getTasks } from '../../store/reducers/task/action-creators';
 
+let start = 0;
+let transform = -100;
+
 const Calendar: FC = () => {
   const slide = useRef<HTMLDivElement>(null);
   const { dateArray } = useSelector(appSelector);
@@ -20,27 +23,25 @@ const Calendar: FC = () => {
   const [refEnd, inViewEnd] = useInView();
   const [refStart, inViewStart] = useInView();
 
-  const start = useRef<number>(0);
   const firstRender = useRef<boolean>(true);
-
-  let transform = -100;
 
   useLayoutEffect(() => {
     if (slide.current) {
+      slide.current.style.transform = `translateX(${transform}px)`;
       slide.current.addEventListener('mousedown', swipeStart);
     }
   }, []);
 
   const swipeStart = (e: MouseEvent) => {
-    start.current = e.x;
+    start = e.x;
 
     document.addEventListener('mousemove', swipeAction);
     document.addEventListener('mouseup', swipeEnd);
   };
 
   const swipeAction = (e: MouseEvent) => {
-    transform += e.x - start.current;
-    start.current = e.x;
+    transform += e.x - start;
+    start = e.x;
 
     if (slide.current !== null) {
       slide.current.style.transform = `translateX(${transform}px)`;
@@ -54,10 +55,10 @@ const Calendar: FC = () => {
 
   useEffect(() => {
     if (inViewStart) {
-      start.current += window.innerWidth < 768 ? 30 * 84 : 30 * 100;
+      start += window.innerWidth < 768 ? 30 * 84 : 30 * 100;
       dispatch(addDatesToStart(getDatesToStart(dateArray[0])));
     } else {
-      firstRender.current ? (firstRender.current = false) : dispatch(getTasks(user.uid, dateArray[0], dateArray[29]));
+      firstRender.current || dispatch(getTasks(user.uid, dateArray[0], dateArray[29]));
     }
   }, [inViewStart]);
 
@@ -65,7 +66,9 @@ const Calendar: FC = () => {
     if (inViewEnd) {
       dispatch(addDatesToEnd(getDatesToEnd(dateArray[dateArray.length - 1])));
     } else {
-      dispatch(getTasks(user.uid, dateArray[dateArray.length - 30], dateArray[dateArray.length - 1]));
+      firstRender.current
+        ? (firstRender.current = false)
+        : dispatch(getTasks(user.uid, dateArray[dateArray.length - 30], dateArray[dateArray.length - 1]));
     }
   }, [inViewEnd]);
 

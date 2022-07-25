@@ -5,6 +5,7 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { GoTrashcan } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import clsx from 'clsx';
 import cl from './Task.module.scss';
 import { ITask } from '../../models/ITask';
 import { deleteTask, putTask, setSelectedTask } from '../../store/reducers/task/action-creators';
@@ -51,7 +52,9 @@ const Task: FC<ITaskProps> = ({ task }) => {
       <div className={cl.wrap__line}>
         {!!task.description && (
           <IoIosArrowDown
-            className={`${cl.wrap__line__icon} ${open && cl.wrap__line__iconRotate}`}
+            className={clsx(cl.wrap__line__icon, {
+              [cl.wrap__line__iconRotate]: open,
+            })}
             onClick={() => setOpen(!open)}
           />
         )}

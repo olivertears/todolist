@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useSelector } from 'react-redux';
 import cl from './Navbar.module.scss';
 import { logout } from '../../store/reducers/user/action-creators';

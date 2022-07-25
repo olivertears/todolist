@@ -13,6 +13,9 @@ const TaskSet: FC = () => {
   const { selectedDate, loader } = useSelector(appSelector);
   const { tasks } = useSelector(taskSelector);
 
+  const date = `${months[new Date(selectedDate).getMonth()]} ${new Date(selectedDate).getDate()}, 
+  ${new Date(selectedDate).getFullYear()}`;
+
   const todayTasks = useMemo(() => {
     return tasks.filter((task) => task.date === selectedDate);
   }, [tasks, selectedDate]);
@@ -20,9 +23,7 @@ const TaskSet: FC = () => {
   return (
     <div className={cl.wrap}>
       <h4 className={cl.wrap__date}>
-        {`${months[new Date(selectedDate).getMonth()]} ${new Date(selectedDate).getDate()}, ${new Date(
-          selectedDate,
-        ).getFullYear()}`}
+        {date}
         <Link to={RouteNames.TASK_REDACTION} className={cl.wrap__date__newTask}>
           +
         </Link>

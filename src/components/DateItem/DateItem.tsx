@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 import cl from './DateItem.module.scss';
 import { appSelector } from '../../store/reducers/app/selector';
 import { setSelectedDate } from '../../store/reducers/app/action-creators';
@@ -31,9 +32,11 @@ const DateItem: FC<IDateItemProps> = ({ date }) => {
   return (
     <div className={cl.wrap}>
       <div
-        className={`${cl.wrap__card} ${selectedDate === date && cl.wrap__selected} ${
-          date === dateToString(new Date().getTime()) && cl.wrap__today
-        }`}
+        className={clsx(cl.wrap__card, {
+          [cl.wrap__past]: date < dateToString(new Date().getTime()),
+          [cl.wrap__selected]: date === selectedDate,
+          [cl.wrap__today]: date === dateToString(new Date().getTime()),
+        })}
         onClick={() => dispatch(setSelectedDate(date))}
       >
         <h3 className={cl.wrap__card__weekDay}>{weekDays[new Date(date).getDay()]}</h3>
