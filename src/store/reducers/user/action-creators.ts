@@ -37,11 +37,7 @@ export const signInWithGoogle = (auth: Auth) => async (dispatch: AppDispatch) =>
   try {
     dispatch(setLoader(true));
     const provider = new GoogleAuthProvider();
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      await signInWithRedirect(auth, provider);
-    } else {
-      await signInWithPopup(auth, provider);
-    }
+    window.innerWidth < 768 ? await signInWithRedirect(auth, provider) : await signInWithPopup(auth, provider);
   } finally {
     dispatch(setLoader(false));
   }
