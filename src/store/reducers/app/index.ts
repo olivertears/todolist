@@ -7,6 +7,7 @@ const initialState: AppState = {
   errors: [] as string[],
   dateArray: getDatesToEnd(dateToString(new Date().getTime() - 2 * 86400000)),
   selectedDate: dateToString(new Date().getTime()),
+  firstLogin: true,
 };
 
 export default function (state = initialState, action: AppAction): AppState {
@@ -23,6 +24,8 @@ export default function (state = initialState, action: AppAction): AppState {
       return { ...state, dateArray: [...state.dateArray, ...action.payload] };
     case AppActionsEnum.SET_SELECTED_DATE:
       return { ...state, selectedDate: action.payload };
+    case AppActionsEnum.SET_FIRST_LOGIN:
+      return { ...state, firstLogin: action.payload };
     default:
       return state;
   }

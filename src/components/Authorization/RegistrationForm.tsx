@@ -2,10 +2,10 @@ import React, { FC, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import cl from './Authorization.module.scss';
-import { addError, setLoader } from '../../store/reducers/app/action-creators';
+import { addError } from '../../store/reducers/app/action-creators';
 import { signInWithGoogle, signUp } from '../../store/reducers/user/action-creators';
-import { RouteNames } from '../../router/RouteNames';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
+import { RouteNames } from '../../router/AppRouter.types';
 
 const RegistrationForm: FC = () => {
   const auth = getAuth();
@@ -22,13 +22,11 @@ const RegistrationForm: FC = () => {
   };
 
   const registration = () => {
-    dispatch(signUp(auth, email, password));
-    navigate(RouteNames.MAIN);
+    dispatch(signUp(auth, email, password)).then(() => navigate(RouteNames.MAIN));
   };
 
   const signInWithPopup = () => {
-    dispatch(signInWithGoogle(auth));
-    navigate(RouteNames.MAIN);
+    dispatch(signInWithGoogle(auth)).then(() => navigate(RouteNames.MAIN));
   };
 
   return (

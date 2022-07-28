@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { RouteNames } from '../../router/RouteNames';
 import cl from './Authorization.module.scss';
 import { signIn, signInWithGoogle } from '../../store/reducers/user/action-creators';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
+import { RouteNames } from '../../router/AppRouter.types';
 
 const LoginForm: FC = () => {
   const auth = getAuth();
@@ -16,8 +16,7 @@ const LoginForm: FC = () => {
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(signIn(auth, email, password));
-    navigate(RouteNames.MAIN);
+    dispatch(signIn(auth, email, password)).then(() => navigate(RouteNames.MAIN));
   };
 
   const signInWithPopup = () => {

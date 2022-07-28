@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import cl from './Task.module.scss';
 import { ITask } from '../../models/ITask';
 import { deleteTask, putTask, setSelectedTask } from '../../store/reducers/task/action-creators';
-import { RouteNames } from '../../router/RouteNames';
+import { RouteNames } from '../../router/AppRouter.types';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
 
 interface ITaskProps {

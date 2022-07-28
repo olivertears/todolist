@@ -1,4 +1,4 @@
-import React, { FC, LegacyRef, useEffect, useRef } from 'react';
+import React, { FC, LegacyRef, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-hook-inview';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -11,6 +11,7 @@ import { addDatesToEnd, addDatesToStart } from '../../store/reducers/app/action-
 import { getDatesToEnd } from '../../utils/getDatesToEnd';
 import { getDatesToStart } from '../../utils/getDatesToStart';
 import { getTasks } from '../../store/reducers/task/action-creators';
+import { months } from '../../consts';
 
 let transform = window.innerWidth < 768 ? -94 : -110;
 let startTouch: null | React.Touch = null;
@@ -24,8 +25,15 @@ const Calendar: FC = () => {
 
   const [refEnd, inViewEnd] = useInView();
   const [refStart, inViewStart] = useInView();
+  const [isMoving, setIsMoving] = useState<boolean>(false);
 
   const firstRender = useRef<boolean>(true);
+
+  useLayoutEffect(() => {
+    if (slide.current) {
+      slide.current.style.transform = `translateX(${transform}px)`;
+    }
+  });
 
   useEffect(() => {
     if (inViewStart) {
@@ -50,6 +58,7 @@ const Calendar: FC = () => {
     e.preventDefault();
 
     if (e.buttons === 1 && slide.current) {
+      setIsMoving(true);
       transform += e.movementX;
       slide.current.style.transform = `translateX(${transform}px)`;
     }
@@ -61,6 +70,7 @@ const Calendar: FC = () => {
     const currentTouch = e.touches[0];
 
     if (startTouch && slide.current) {
+      setIsMoving(true);
       transform -= startTouch.clientX - currentTouch.clientX;
       slide.current.style.transform = `translateX(${transform}px)`;
     }
@@ -94,7 +104,7 @@ const Calendar: FC = () => {
       >
         {dateArray.map((date, idx) => (
           <div key={date} ref={getRef(idx)}>
-            <DateItem date={date} />
+            <DateItem date={date} isMoving={isMoving} setIsMoving={setIsMoving} />
           </div>
         ))}
       </div>

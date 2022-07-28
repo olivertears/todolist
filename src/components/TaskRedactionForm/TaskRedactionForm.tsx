@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import cl from './TaskRedactionForm.module.scss';
 import { appSelector } from '../../store/reducers/app/selector';
-import { RouteNames } from '../../router/RouteNames';
+import { RouteNames } from '../../router/AppRouter.types';
 import { postTask, putTask, setSelectedTask } from '../../store/reducers/task/action-creators';
 import { ITask } from '../../models/ITask';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
@@ -38,8 +38,7 @@ const TaskRedactionForm: FC = () => {
       date,
       done: false,
     };
-    dispatch(putTask(user?.uid || '', changedTask));
-    navigate(RouteNames.MAIN);
+    dispatch(putTask(user?.uid || '', changedTask)).then(() => navigate(RouteNames.MAIN));
   };
 
   const addTask = () => {
@@ -50,8 +49,7 @@ const TaskRedactionForm: FC = () => {
       date,
       done: false,
     };
-    dispatch(postTask(user?.uid || '', newTask));
-    navigate(RouteNames.MAIN);
+    dispatch(postTask(user?.uid || '', newTask)).then(() => navigate(RouteNames.MAIN));
   };
 
   const clearSelectedTask = () => dispatch(setSelectedTask({} as ITask));

@@ -4,6 +4,7 @@ import {
   AddErrorAction,
   AppActionsEnum,
   RemoveErrorAction,
+  SetFirstLoginAction,
   SetLoaderAction,
   SetSelectedDateAction,
 } from './types';
@@ -35,4 +36,9 @@ export const addDatesToEnd = (dates: string[]): AddDatesToEndAction => ({
 export const setSelectedDate = (date: string): SetSelectedDateAction => ({
   type: AppActionsEnum.SET_SELECTED_DATE,
   payload: date,
+});
+
+export const setFirstLogin = (firstLogin: boolean): SetFirstLoginAction => ({
+  type: AppActionsEnum.SET_FIRST_LOGIN,
+  payload: firstLogin,
 });

@@ -3,6 +3,7 @@ export interface AppState {
   errors: string[];
   dateArray: string[];
   selectedDate: string;
+  firstLogin: boolean;
 }
 
 export enum AppActionsEnum {
@@ -12,6 +13,7 @@ export enum AppActionsEnum {
   ADD_DATES_TO_START = 'ADD_DATES_TO_START',
   ADD_DATES_TO_END = 'ADD_DATES_TO_END',
   SET_SELECTED_DATE = 'SET_SELECTED_DATE',
+  SET_FIRST_LOGIN = 'SET_FIRST_LOGIN',
 }
 
 export interface SetLoaderAction {
@@ -43,10 +45,16 @@ export interface SetSelectedDateAction {
   payload: string;
 }
 
+export interface SetFirstLoginAction {
+  type: AppActionsEnum.SET_FIRST_LOGIN;
+  payload: boolean;
+}
+
 export type AppAction =
   | SetLoaderAction
   | AddErrorAction
   | RemoveErrorAction
   | AddDatesToStartAction
   | AddDatesToEndAction
-  | SetSelectedDateAction;
+  | SetSelectedDateAction
+  | SetFirstLoginAction;

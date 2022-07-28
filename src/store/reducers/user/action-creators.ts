@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import { addError, setLoader } from '../app/action-creators';
+import { addError, setFirstLogin, setLoader } from '../app/action-creators';
 import { AppDispatch } from '../../index';
 import { resetTasks } from '../task/action-creators';
 
@@ -48,6 +48,7 @@ export const logout = (auth: Auth) => async (dispatch: AppDispatch) => {
     dispatch(setLoader(true));
     await signOut(auth);
     dispatch(resetTasks());
+    dispatch(setFirstLogin(true));
   } catch (err: any) {
     dispatch(addError('Something went wrong, please try again later'));
   } finally {

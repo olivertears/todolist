@@ -1,21 +1,13 @@
 import React from 'react';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
-import TaskRedaction from '../pages/TaskRedaction';
-import Main from '../pages/Main';
-import { RouteNames } from './RouteNames';
+import { RouteNames, IRoute } from './AppRouter.types';
+const SignIn = React.lazy(() => import('../pages/SignIn'));
+const SignUp = React.lazy(() => import('../pages/SignUp'));
+const TaskRedaction = React.lazy(() => import('../pages/TaskRedaction'));
+const Main = React.lazy(() => import('../pages/Main'));
 
-export interface IRoute {
-  path: string;
-  element: React.ComponentType;
-}
-
-export const publicRoutes: IRoute[] = [
-  { path: RouteNames.SIGN_IN, element: SignIn },
-  { path: RouteNames.SIGN_UP, element: SignUp },
-];
-
-export const privateRoutes: IRoute[] = [
-  { path: RouteNames.MAIN, element: Main },
-  { path: RouteNames.TASK_REDACTION, element: TaskRedaction },
+export const routes: IRoute[] = [
+  { path: RouteNames.SIGN_IN, element: SignIn, guard: false },
+  { path: RouteNames.SIGN_UP, element: SignUp, guard: false },
+  { path: RouteNames.MAIN, element: Main, guard: true },
+  { path: RouteNames.TASK_REDACTION, element: TaskRedaction, guard: true },
 ];

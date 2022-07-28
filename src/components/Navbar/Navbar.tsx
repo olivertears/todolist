@@ -1,20 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
 import cl from './Navbar.module.scss';
 import { logout } from '../../store/reducers/user/action-creators';
 import { useThunkDispatch } from '../../hooks/useThunkDispatch';
+import { RouteNames } from '../../router/AppRouter.types';
 
 const Navbar = () => {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
   const dispatch = useThunkDispatch();
 
-  const signOut = () => {
-    dispatch(logout(auth));
-  };
+  const signOut = () => dispatch(logout(auth)).then(() => navigate(RouteNames.SIGN_IN));
 
   return (
     <header className={cl.header}>

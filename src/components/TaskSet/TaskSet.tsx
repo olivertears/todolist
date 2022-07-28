@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import cl from './TaskSet.module.scss';
 import Task from '../Task/Task';
-import { RouteNames } from '../../router/RouteNames';
+import { RouteNames } from '../../router/AppRouter.types';
 import { appSelector } from '../../store/reducers/app/selector';
 import { taskSelector } from '../../store/reducers/task/selector';
 import { months } from '../../consts';

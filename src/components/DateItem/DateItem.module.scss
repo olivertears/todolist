@@ -5,6 +5,12 @@
   flex-direction: column;
   align-items: center;
 
+  &__month {
+    margin-top: 10px;
+    position: sticky;
+    line-height: 24px;
+  }
+
   &__card {
     height: 80px;
     min-width: 64px;
