@@ -70,7 +70,6 @@ const Calendar: FC = () => {
     const currentTouch = e.touches[0];
 
     if (startTouch && slide.current) {
-      setIsMoving(true);
       transform -= startTouch.clientX - currentTouch.clientX;
       slide.current.style.transform = `translateX(${transform}px)`;
     }
