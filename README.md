@@ -1,46 +1,41 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Innowise Lab Internship: Level 1: Clever to-do list
+##Task
+- [Requirements](https://docs.google.com/document/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/edit)
+- [Deployment](https://todolist-olivertears.vercel.app/)
+## How to run the app
+1. Clone the repository to your local machine
+2. Run "cd todolist" command to move into the project directory
+3. Run "npm i" command to install all the dependencies
+4. Switch to the dev branch if you're planning to change app
+5. Run "npm start" command to run the app in your browser
+### Additional scripts
+- npm run lint (Simply checks the code for linting errors, doesn't fix anything)
+- npm run lint:fix (fixes possible linting errors)
+### How to create git hooks
+- Run npm run prepare
+- Add a hook, e.g. npx husky add .husky/pre-commit "npm lint" (Will run npm test before making a commit)
+- For more information, visit [husky npm page](https://www.npmjs.com/package/husky)
+## Database snapshot
+There is a user collection in Firestore where for each user the task collection is created. Inside each of the task collections the user tasks are stored as an array of documents.
+- Each task has the following structure:
+  - date: string
+  - description: string
+  - done: boolean
+  - task: string
+  - uid: string
+- There is another storage designed for authentication only. Firebase creates a new user doc in there when the user is signing up.
+## Application stack
+- React, React Router
+- Firebase
+- TypeScript
+- Redux (Thunk)
+- Sass
+## Folder structure
+- Project boilerplate was generated via create-react-app --template typescript
+- You can find HTML in public folder
+- React router pages can be found in src/pages
+- Regular components which are not pages themselves can be found in src/components
+- Redux store can be found in src/store
+- Utils using to handle the date are located in src/utils
+- Custom hooks used across the app can be found in src/hooks
+- Styles structure is created in src/styles folder + you can find module.scss file in the same folder with the component is related to

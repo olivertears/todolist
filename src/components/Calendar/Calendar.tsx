@@ -11,7 +11,6 @@ import { addDatesToEnd, addDatesToStart } from '../../store/reducers/app/action-
 import { getDatesToEnd } from '../../utils/getDatesToEnd';
 import { getDatesToStart } from '../../utils/getDatesToStart';
 import { getTasks } from '../../store/reducers/task/action-creators';
-import { months } from '../../consts';
 
 let transform = window.innerWidth < 768 ? -94 : -110;
 let startTouch: null | React.Touch = null;
