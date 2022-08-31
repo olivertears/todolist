@@ -1,4 +1,4 @@
-# Innowise Lab Internship: Level 1: Clever to-do list
+# Innowise Lab Internship: Level 1 - Clever To-Do List
 ## Task
 - [Requirements](https://docs.google.com/document/d/1heFuihWrsw14bCpUdr6fla9ysqE6IrsobSMKAOpBiKA/edit)
 - [Deployment](https://todolist-olivertears.vercel.app/)
